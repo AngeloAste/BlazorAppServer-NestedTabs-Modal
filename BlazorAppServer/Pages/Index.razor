@@ -1,0 +1,231 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+
+<Row>
+    <Column>
+        <Card Margin="Margin.Is4.OnY">
+            <CardHeader>
+                <CardTitle>Modals (Default)</CardTitle>
+            </CardHeader>
+            <CardBody>
+                <CardText>
+                    A rendered modal with header, body, and set of actions in the footer.
+                </CardText>
+            </CardBody>
+            <CardBody>
+                <Button Color="Color.Primary" Clicked="@(()=>ShowModal( ModalSize.Default ))">
+                    Standard Modal
+                </Button>
+                <Button Color="Color.Success" Clicked="@(()=>ShowModal( ModalSize.Small ))">
+                    Small Modal
+                </Button>
+                <Button Color="Color.Info" Clicked="@(()=>ShowModal( ModalSize.Large ))">
+                    Large Modal
+                </Button>
+                <Button Color="Color.Info" Clicked="@(()=>ShowModal( ModalSize.Fullscreen, null, false ))">
+                    Full Screen
+                </Button>
+                <Button Color="Color.Primary" Clicked="@(()=>ShowModal( ModalSize.Default, null, true ))">
+                    Centered Modal
+                </Button>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
+
+
+<Column ColumnSize="ColumnSize.IsFull.OnMobile.IsHalf.OnTablet">
+    <Card Class="tab-pane">
+            <CardHeader>
+                <CardTitle>Nested Tabs / Tabs Anidados</CardTitle>
+            </CardHeader>
+            <CardBody Class="tab-content">
+                <Tabs SelectedTab="@selectedTabName1" SelectedTabChanged="@OnSelectedTabChanged1" Justified>
+                    <Items>
+                    <Tab Name="TabsPrincipales1" class="curvo"> Tabs 1</Tab>
+                    <Tab Name="TabsPrincipales2" class="curvo"> Tabs 2</Tab>
+                    </Items>
+                    <Content>
+                    <TabPanel Name="TabsPrincipales1">
+                            <Tabs SelectedTab="@selectedTabName1Anidado" SelectedTabChanged="@OnSelectedTabChangedAnidado1" Justified>
+                                <Items>
+                                    @tabItems
+                                </Items>
+                                <Content>
+                                    @tabContent
+                                </Content>
+                            </Tabs>
+                        </TabPanel>
+
+                    <TabPanel Name="TabsPrincipales2">
+                        <Tabs SelectedTab="@selectedTabName2Anidado" SelectedTabChanged="@OnSelectedTabChangedAnidado2" Justified>
+                            <Items>
+                                @tabItems2
+                            </Items>
+                            <Content>
+                                @tabContent2
+                            </Content>
+                        </Tabs>
+                    </TabPanel>
+
+                    </Content>
+                </Tabs>
+            </CardBody>
+        </Card>
+    </Column>
+
+
+<Modal @ref="modalRef" Animated="animation" AnimationDuration="animationDuration">
+    <ModalContent Size="@modalSize" Centered="@centered">
+        <ModalHeader>
+            <ModalTitle>
+                <Icon Name="IconName.Edit" />
+                Employee edit
+            </ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody MaxHeight="@maxHeight">
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit Autofocus Placeholder="Enter name..." />
+            </Field>
+            <Field>
+                <FieldLabel>Surname</FieldLabel>
+                <TextEdit Placeholder="Enter surname..." />
+            </Field>
+            <Field>
+                <FieldLabel>Date of birth</FieldLabel>
+                <DateEdit TValue="DateTime?" Placeholder="Pick a date" />
+            </Field>
+            <Field>
+                <Button Color="Color.Primary" Clicked="@ShowModal2">Show second modal</Button>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@HideModal">Save Changes</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="modalRef2" Animated="animation" AnimationDuration="animationDuration">
+    <ModalContent Size="ModalSize.Small" Centered>
+        <ModalHeader>
+            <ModalTitle>
+                Hello
+            </ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            I am a second modal with some message.
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal2">Close</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+ 
+@code {
+    private RenderFragment tabItems => __builder =>
+    {
+        <Tab Name="home1">Home 1 </Tab>
+        <Tab Name="profile1">Profile 1</Tab>
+        <Tab Name="messages1">Messages 1</Tab>
+        <Tab Name="settings1">Settings 1</Tab>
+    };
+    private RenderFragment tabItems2 => __builder =>
+    {
+        <Tab Name="home2">Home 2</Tab>
+        <Tab Name="profile2">Profile 2</Tab>
+        <Tab Name="messages2">Messages 2</Tab>
+        <Tab Name="settings2">Settings 2</Tab>
+    };
+    private RenderFragment tabContent => __builder =>
+    {
+        <TabPanel Name="home1">
+            Tab1 Cillum ad ut irure tempor velit nostrud occaecat ullamco aliqua anim Lorem sint. Veniam sint duis incididunt do esse magna mollit excepteur laborum qui. Id id reprehenderit sit est eu aliqua occaecat quis et velit excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et voluptate minim reprehenderit mollit pariatur. Deserunt non laborum enim et cillum eu deserunt excepteur ea incididunt minim occaecat.
+        </TabPanel>
+        <TabPanel Name="profile1">
+            Tab1 Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.
+        </TabPanel>
+        <TabPanel Name="messages1">
+            Tab1 Fugiat id quis dolor culpa eiusmod anim velit excepteur proident dolor aute qui magna. Ad proident laboris ullamco esse anim Lorem Lorem veniam quis Lorem irure occaecat velit nostrud magna nulla. Velit et et proident Lorem do ea tempor officia dolor. Reprehenderit Lorem aliquip labore est magna commodo est ea veniam consectetur.
+        </TabPanel>
+        <TabPanel Name="settings1">
+            Tab1 Eu dolore ea ullamco dolore Lorem id cupidatat excepteur reprehenderit consectetur elit id dolor proident in cupidatat officia. Voluptate excepteur commodo labore nisi cillum duis aliqua do. Aliqua amet qui mollit consectetur nulla mollit velit aliqua veniam nisi id do Lorem deserunt amet. Culpa ullamco sit adipisicing labore officia magna elit nisi in aute tempor commodo eiusmod.
+        </TabPanel>
+    };
+    private RenderFragment tabContent2 => __builder =>
+    {
+    <TabPanel Name="home2">
+            Tab2 Cillum ad ut irure tempor velit nostrud occaecat ullamco aliqua anim Lorem sint. Veniam sint duis incididunt do esse magna mollit excepteur laborum qui. Id id reprehenderit sit est eu aliqua occaecat quis et velit excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et voluptate minim reprehenderit mollit pariatur. Deserunt non laborum enim et cillum eu deserunt excepteur ea incididunt minim occaecat.
+    </TabPanel>
+    <TabPanel Name="profile2">
+            Tab2 Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.
+    </TabPanel>
+    <TabPanel Name="messages2">
+            Tab2 Fugiat id quis dolor culpa eiusmod anim velit excepteur proident dolor aute qui magna. Ad proident laboris ullamco esse anim Lorem Lorem veniam quis Lorem irure occaecat velit nostrud magna nulla. Velit et et proident Lorem do ea tempor officia dolor. Reprehenderit Lorem aliquip labore est magna commodo est ea veniam consectetur.
+    </TabPanel>
+    <TabPanel Name="settings2">
+            Tab2 Eu dolore ea ullamco dolore Lorem id cupidatat excepteur reprehenderit consectetur elit id dolor proident in cupidatat officia. Voluptate excepteur commodo labore nisi cillum duis aliqua do. Aliqua amet qui mollit consectetur nulla mollit velit aliqua veniam nisi id do Lorem deserunt amet. Culpa ullamco sit adipisicing labore officia magna elit nisi in aute tempor commodo eiusmod.
+    </TabPanel>
+    };
+
+    private string selectedTabName1 = "TabsPrincipales1";
+
+    private string selectedTabName1Anidado = "home1";
+    private string selectedTabName2Anidado = "home2";
+    private Modal modalRef;
+    private Modal modalRef2;
+    private bool centered = false;
+    private ModalSize modalSize = ModalSize.Default;
+    private int? maxHeight = null;
+    private bool animation = true;
+    private int animationDuration = 150;
+
+    private void OnSelectedTabChanged1(string name)
+    {
+        selectedTabName1 = name;
+    }
+
+    private void OnSelectedTabChangedAnidado2(string name)
+    {
+        selectedTabName2Anidado = name;
+    }
+
+    private void OnSelectedTabChangedAnidado1(string name)
+    {
+        selectedTabName1Anidado = name;
+    }
+
+    private Task ShowModal(ModalSize modalSize, int? maxHeight = null, bool centered = false)
+    {
+        this.centered = centered;
+        this.modalSize = modalSize;
+        this.maxHeight = maxHeight;
+
+        return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+        return modalRef.Hide();
+    }
+
+    private Task ShowModal2()
+    {
+        return modalRef2.Show();
+    }
+
+    private Task HideModal2()
+    {
+        return modalRef2.Hide();
+    }
+    
+
+}
