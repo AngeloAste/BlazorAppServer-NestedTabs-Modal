@@ -1,6 +1,6 @@
 ![image](https://user-images.githubusercontent.com/110312875/231907403-6cbb0246-beef-4118-a860-dd16fa3a148e.png)
 # BlazorAppServer-NestedTabs-Modal
-Proyecto Blazor con Nested Tabs (Tabs Anidados) y Modals usando la libreria blazorise
+Proyecto Blazor utilizando la librería Blazorise con Nested Tabs (Tabs Anidados) y Modals
 
 
 # Ejemplo
